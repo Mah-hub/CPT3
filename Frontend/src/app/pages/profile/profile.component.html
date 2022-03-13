@@ -1,0 +1,284 @@
+<div class="container-fluid">
+
+    <app-page-title title="Profile" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card overflow-hidden">
+          <div class="bg-soft bg-primary">
+            <div class="row">
+              <div class="col-7">
+                <div class="text-primary p-3">
+                  <h5 class="text-primary">Welcome Back !</h5>
+                  <p>It will seem like simplified</p>
+                </div>
+              </div>
+              <div class="col-5 align-self-end">
+                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+               
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div class="row">
+              <div class="col-sm-4">
+                
+                <div class="avatar-md profile-user-wid mb-4">
+                  <label class="hoverable" for="fileInput">
+                    <img [src]="url ? url : userImage"  class="img-thumbnail rounded-circle"> 
+                    <div class="hover-text"><i class="bx bxs-camera"> </i></div>
+                    <div class="background"></div>
+                  </label>
+                  <br/>
+                  <input  id="fileInput" type="file" accept="image/*" (change)="onSelectFile($event)">
+                </div>
+               
+              </div>
+  
+              <div class="col-sm-8">
+                <div class="pt-4">
+  
+                  <div class="row">
+                    <div class="col-6">
+                      <h5 class="font-size-15">125</h5>
+                      <p class="text-muted mb-0">Projects</p>
+                    </div>
+                    <div class="col-6">
+                      <h5 class="font-size-15">$1245</h5>
+                      <p class="text-muted mb-0">Revenue</p>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+  
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Personal Information</h4>
+  
+            <p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
+              person, it will seem like simplified English, as a skeptical Cambridge.</p>
+            <div class="table-responsive">
+              <table class="table table-nowrap mb-0">
+                <tbody>
+                  <tr>
+                    <th scope="row">Username :</th>
+                    <td>{{user.username}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Full Name :</th>
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Role :</th>
+                    <td>admin</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Mobile :</th>
+                    <td>{{user.phone_number}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">E-mail :</th>
+                    <td>{{user.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Company :</th>
+                    <td>{{user.company}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+  
+        
+      </div>
+  
+      <div class="col-xl-8">
+  
+       <!--  --> 
+
+       
+          
+       
+
+
+       <!-- -->
+       
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Update your profile</h4>
+              <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
+                validation–available in all our supported browsers.</p>
+              <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform">
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustom01">Username</label>
+                      <input type="text" class="form-control" id="validationCustom01" formControlName="username"
+                        placeholder="Username" [ngClass]="{'is-valid': submit && form.username.errors}">
+                      <div *ngIf="submit && form.username.errors" class="valid-feedback">
+                        <span *ngIf="form.username.errors.required">Looks good!</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustom01">First name</label>
+                      <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
+                        placeholder="First name" [ngClass]="{'is-valid': submit && form.firstName.errors}">
+                      <div *ngIf="submit && form.firstName.errors" class="valid-feedback">
+                        <span *ngIf="form.firstName.errors.required">Looks good!</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustom02">Last name</label>
+                      <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
+                        placeholder="Last name" [ngClass]="{'is-valid': submit && form.lastName.errors}">
+                      <div *ngIf="submit && form.lastName.errors" class="valid-feedback">
+                        <span *ngIf="form.lastName.errors.required">Looks good!</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustom03">Phone number</label>
+                      <input type="text" class="form-control" id="validationCustom03" formControlName="phoneNumber"
+                        placeholder="Phone number" [ngClass]="{'is-invalid': submit && form.phoneNumber.errors}">
+                      <div *ngIf="submit && form.phoneNumber.errors" class="invalid-feedback">
+                        <span *ngIf="form.city.errors.required">Please provide a valid Phone number.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustom03">Email</label>
+                      <input type="text" class="form-control" id="validationCustom03" formControlName="email"
+                        placeholder="Email" [ngClass]="{'is-invalid': submit && form.email.errors}">
+                      <div *ngIf="submit && form.email.errors" class="invalid-feedback">
+                        <span *ngIf="form.city.errors.required">Please provide a valid email.</span>
+                      </div>
+                    </div>
+                  </div>
+
+               
+                  
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustom04">Birth Date</label>
+                      <div class="col-md-10">
+                        <input class="form-control" type="date" value="2019-08-19"  id="example-date-input">
+                    </div>
+                    </div>
+                  </div>
+                
+                </div>
+
+
+
+
+
+
+
+
+              
+              <div>
+                <button class="btn btn-primary" type="submit" (click)="updateProfile()">Update profile data</button>
+              </div>
+              </form>
+            </div>
+            
+          </div>
+          <!-- end card -->
+
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Update your password</h4>
+              <p class="card-title-desc">
+                Parsley is a javascript form validation library. It helps you provide your users with feedback on
+                their form submission before sending it to your server.
+              </p>
+              <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
+                <div class="mb-3">
+
+                  <ngb-alert *ngIf="wrongOldPassword" [dismissible]="false" type="danger">
+                    Wrong old password, please try again!
+                  </ngb-alert>
+
+
+                  <label class="form-label">Old password</label>
+                  <div class="input-group auth-pass-inputgroup"> 
+
+                  <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid': typesubmit && type.password.errors}" placeholder="Type your old password" [type]="hide ? 'password' : 'text'"/>
+                  <button class="btn btn-light ms-0" type="button" id="password-addon" (click)="hide = !hide" ><i class="{{hide ? 'mdi mdi-eye-outline' : 'mdi mdi-eye-off-outline'}}"></i></button>
+
+                  
+
+                    
+                  <div *ngIf="typesubmit && type.password.errors" class="invalid-feedback">
+                    <span *ngIf="type.password.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+                <div class="mb-3">
+                  <label class="form-label">New password</label>
+                  
+                  <div class="input-group auth-pass-inputgroup"> 
+                    <input type="password" class="form-control" placeholder="New password" formControlName="newpassword" [type]="hide2 ? 'password' : 'text'"
+                      [ngClass]="{'is-invalid': typesubmit && type.newpassword.errors}" />
+                      <button class="btn btn-light ms-0" type="button" id="password-addon" (click)="hide2 = !hide2" ><i class="{{hide2 ? 'mdi mdi-eye-outline' : 'mdi mdi-eye-off-outline'}}"></i></button>
+
+                    <div *ngIf="typesubmit && type.newpassword.errors" class="invalid-feedback">
+
+                      <span *ngIf="type.newpassword.errors.required">This value is required.</span>
+                      <span *ngIf="type.newpassword.errors.minlength">Password must be at least 8
+                        characters.</span>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <div class="input-group auth-pass-inputgroup"> 
+
+                    <input type="password" class="form-control" placeholder="Re-Type the new password" formControlName="confirmpwd"  [type]="hide3 ? 'password' : 'text'"
+                      [ngClass]="{'is-invalid': typesubmit && type.confirmpwd.errors}" />
+                      <button class="btn btn-light ms-0" type="button" id="password-addon" (click)="hide3 = !hide3" ><i class="{{hide3 ? 'mdi mdi-eye-outline' : 'mdi mdi-eye-off-outline'}}"></i></button>
+
+                    <div *ngIf="typesubmit && type.confirmpwd.errors" class="invalid-feedback">
+                      <span *ngIf="type.confirmpwd.errors.required">This value is required.</span>
+                      <span *ngIf="type.confirmpwd.errors.mustMatch">This value should be the same.</span>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                  <button type="submit" class="btn btn-primary waves-effect waves-light" (click)="updatePassword()">
+                      Update password
+                  </button>
+              </div>
+              </form>
+            </div>
+          </div>
+        
+      </div>
+
+
+    
+
+
+
+    </div>
+    <!-- end row -->
+  </div>
+  

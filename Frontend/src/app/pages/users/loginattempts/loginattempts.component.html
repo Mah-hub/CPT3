@@ -1,0 +1,95 @@
+<div class="container-fluid">
+  <app-page-title title="Login attempts" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="tickets-table_length"><label
+                  class="d-inline-flex align-items-center">Show
+                  <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize" [(ngModel)]="pageSize"
+                     class="form-control form-control-sm mx-2" >
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                  class="d-inline-flex align-items-center">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                </label></div>
+            </div>
+            <!-- End search -->
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle  table-nowrap table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">IP Address</th>
+                  <th scope="col">Country</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr *ngFor="let l of loginAttemptsData2 | filter:term | slice:0:pageSize ">
+                  
+                  <td>
+                    <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{l.username}}</a>
+                    </h5>
+                  </td>
+                  <td>
+                    <p> {{l.ipaddress}} </p>
+                  </td>
+                  <td>
+                    <p> {{l.countryname}} </p>
+                  </td>
+                  <td>
+                    <p> {{l.date}} </p>
+                  </td>
+                  <td>
+                    <ul class="list-inline font-size-20 contact-links mb-0">
+                      <li class="list-inline-item px-2">
+                        <a [routerLink]="['/users/loginattemptdetails/',l.id]"><i class="bx bx-message-square-dots"></i></a>
+                      </li>
+                      <li class="list-inline-item px-2">
+                        <a  ngbTooltip="Profile"><i class="bx bx-user-circle"></i></a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="row justify-content-md-between align-items-md-center">
+              <div class="col-7">
+                Showing {{startIndex}} - {{endIndex}} of {{totalRecords}}
+              </div> <!-- end col-->
+              <div class="col-5">
+                <div class="text-md-right float-md-end mt-2">
+                  <ngb-pagination class="pagination-rounded" [collectionSize]="totalRecords"
+                    (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize">
+                  </ngb-pagination>
+                  <!--Pagination-->
+                </div>
+              </div> <!-- end col-->
+             
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  </div>

@@ -1,0 +1,86 @@
+<div class="container-fluid">
+
+<app-page-title title="Login Attempt Details" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-6">
+              <div class="product-detai-imgs">
+                <div class="row">
+                    <div class="card-body">
+                        <a  class="text-primary">Location : </a>
+                        <br/>
+                        
+                        <agm-map [latitude]="lat" [longitude]="lng" style="height: 300px">
+                          <agm-circle [latitude]="lat" [longitude]="lng" [radius]="5000" [fillColor]="'red'"
+                            [circleDraggable]="true" [editable]="true">
+                          </agm-circle>
+                        </agm-map>
+                      </div>
+                     
+
+                  <div  class="col-md-7 offset-md-1 col-sm-9 col-8"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6">
+              <div class="mt-4 mt-xl-3">
+                <a  class="text-primary">Username : </a>
+                <h5 class="mt-1 mb-3">{{loginattemptdetails.username}}</h5>
+                <a  class="text-primary">Date : </a>
+                <h5 class="mt-1 mb-3">{{loginattemptdetails.date}}</h5>
+                <a  class="text-primary">IP Address : </a>
+                <h5 class="mt-1 mb-3">{{loginattemptdetails.ipaddress}}</h5>
+                <a  class="text-primary">Browser : </a>
+                <h6 class="mt-1 mb-3">{{loginattemptdetails.browsername}} Version: {{loginattemptdetails.browserversion}}  </h6>
+                <a  class="text-primary">Country : </a>
+                <h5 class="mt-1 mb-3">{{loginattemptdetails.countryname }}, {{loginattemptdetails.capital }}, {{loginattemptdetails.countrytld}} <img src="{{loginattemptdetails.countryflag}}" width="8%"> </h5> 
+                <a  class="text-primary">Oragnization | Internet Service Prodiver : </a>
+                <h5 class="mt-1 mb-3">{{loginattemptdetails.organisation}} | {{loginattemptdetails.isp}}</h5>
+               
+
+              
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+
+          <div class="mt-5">
+            <h5 class="mb-3">Currency :</h5>
+
+            <div class="table-responsive">
+              <table class="table mb-0 table-bordered">
+                <tbody>
+                  <tr>
+                    <th scope="row" style="width: 400px;">Currency name</th>
+                    <td>{{loginattemptdetails.currencyname}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" style="width: 400px;">Currency code</th>
+                    <td>{{loginattemptdetails.currencycode}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" style="width: 400px;">Currency symbol</th>
+                    <td>{{loginattemptdetails.currencysymbol}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- end Specifications -->
+
+        </div>
+      </div>
+    </div>
+
+    <!-- end card -->
+  </div>
+
+
+
+</div>

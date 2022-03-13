@@ -1,0 +1,332 @@
+<div class="container-fluid">
+
+    <app-page-title title="Profile" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card overflow-hidden">
+          <div class="bg-soft bg-primary">
+            <div class="row">
+              <div class="col-7">
+                <div class="text-primary p-3">
+                  <h5 class="text-primary"></h5>
+                  <p>It will seem like simplified</p>
+                </div>
+              </div>
+              <div class="col-5 align-self-end">
+                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="avatar-md profile-user-wid mb-4">
+                  <img src="{{userImage}}" alt="" class="img-thumbnail rounded-circle">
+                </div>
+               
+              </div>
+  
+              <div class="col-sm-8">
+                <div class="pt-4">
+  
+                  <div class="row">
+                    <div class="col-6">
+                      <h5 class="font-size-15">125</h5>
+                      <p class="text-muted mb-0">Projects</p>
+                    </div>
+                    <div class="col-6">
+                      <h5 class="font-size-15">$1245</h5>
+                      <p class="text-muted mb-0">Revenue</p>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+  
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Additional Information</h4>
+  
+            <p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
+              person, it will seem like simplified English, as a skeptical Cambridge.</p>
+            <div class="table-responsive">
+              <table class="table table-nowrap mb-0">
+                <tbody>
+                  <tr>
+                    <th scope="row">Username :</th>
+                    <td>{{ user.username}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Full Name :</th>
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+                  </tr>
+                
+                  <tr>
+                    <th scope="row">Created at :</th>
+                    <td>{{userCreatedAt}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Last Login: </th>
+                    <td>{{userLastLogin}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Last update :</th>
+                    <td>{{userLastUpdatedAt}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+   
+        
+      </div>
+      
+  
+      <div class="col-xl-8">
+  
+       <!--  --> 
+
+       
+          
+       
+
+
+       <!-- -->
+       
+        <div class="card">
+
+            <div class="card-body">
+              <h4 class="card-title">{{user.username}}'s profile</h4>
+              <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
+                validation–available in all our supported browsers.</p>
+              <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform">
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom01">Username</label>
+                      <input type="text" class="form-control" id="validationCustom01" formControlName="username"
+                        placeholder="Username" [ngClass]="{'is-valid': submit && form.username.errors}">
+                      <div *ngIf="submit && form.username.errors" class="valid-feedback">
+                        <span *ngIf="form.username.errors.required">Looks good!</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="validationCustom01">First name</label>
+                      <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
+                        placeholder="First name" [ngClass]="{'is-valid': submit && form.firstName.errors}">
+                      <div *ngIf="submit && form.firstName.errors" class="valid-feedback">
+                        <span *ngIf="form.firstName.errors.required">Looks good!</span>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="validationCustom02">Last name</label>
+                      <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
+                        placeholder="Last name" [ngClass]="{'is-valid': submit && form.lastName.errors}">
+                      <div *ngIf="submit && form.lastName.errors" class="valid-feedback">
+                        <span *ngIf="form.lastName.errors.required">Looks good!</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom03">Phone number</label>
+                      <input type="text" class="form-control" id="validationCustom03" formControlName="phoneNumber"
+                        placeholder="Phone number" [ngClass]="{'is-invalid': submit && form.phoneNumber.errors}">
+                      <div *ngIf="submit && form.phoneNumber.errors" class="invalid-feedback">
+                        <span *ngIf="form.city.errors.required">Please provide a valid Phone number.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom03">Email</label>
+                      <input type="text" class="form-control" id="validationCustom03" formControlName="email"
+                        placeholder="Email" [ngClass]="{'is-invalid': submit && form.email.errors}">
+                      <div *ngIf="submit && form.email.errors" class="invalid-feedback">
+                        <span *ngIf="form.city.errors.required">Please provide a valid email.</span>
+                      </div>
+                    </div>
+                  </div>
+
+               
+               
+                
+                </div>
+
+
+
+
+
+
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom03">Company</label>
+                      <input type="text" class="form-control" id="validationCustom03" formControlName="company"
+                        placeholder="Company" [ngClass]="{'is-invalid': submit && form.company.errors}">
+                      <div *ngIf="submit && form.company.errors" class="invalid-feedback">
+                        <span *ngIf="form.company.errors.required">Please provide a valid company.</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom05">Role</label>
+                      <input type="text" class="form-control" id="validationCustom05" formControlName="groups"
+                        placeholder="Role" [ngClass]="{'is-invalid': submit && form.groups.errors}">
+                      <div *ngIf="submit && form.groups.errors" class="invalid-feedback">
+                        <span *ngIf="form.groups.errors.required">Please provide a valid role.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+               
+            
+              <div>
+                <button class="btn btn-primary" type="submit">Submit form</button>
+              </div>
+              </form>
+            </div>
+            
+            
+
+
+
+          </div>
+          <!-- end card -->
+
+
+          <div class="card" >
+            <div class="card-body">
+              <h4 class="card-title">{{user.username}}'s custom permissions</h4>
+              <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
+                validation–available in all our supported browsers.</p>
+              <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform">
+
+
+                <div class="row">
+                  
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      
+                     
+                      <div class="table-responsive">
+                       <h6> Available permissions</h6>
+                       <div class="col-sm-12 col-md-12">
+                        <div >
+                            <input type="text" placeholder="Search" name="searchTerm" class="form-control form-control-sm "></div>
+                      </div>
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                        <table class="table table-sm m-0 table-bordered" >
+                          <thead>
+                            
+                          </thead>
+                          <tbody >
+                            <tr *ngFor="let p of permissionsData" [class.selectedRow]="rowIsSelected(p.id)" (click)="onRowClick(p.id)" style="cursor: pointer;">
+                            
+                              <td>{{p.name}}</td>
+                              
+                            </tr>
+                           
+                          </tbody>
+                        </table>
+                      </div>
+            
+                      </div>
+            
+                    </div>
+                  </div>  
+                  
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      <h6> {{user.username}}'s custom permissions</h6>
+
+
+                      <div class="col-sm-12 col-md-12">
+                        <div >
+                            <input type="text" placeholder="Search" name="searchTerm" class="form-control form-control-sm "></div>
+                      </div>
+                      
+                      <div class="table-responsive">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                        <table class="table table-sm m-0 table-bordered">
+                          <thead>
+                            
+                          </thead>
+                          <tbody>
+
+                            <tr  *ngFor="let p of permissionsData2" [class.selectedRow2]="rowIsSelected2(p.id)" (click)="onRowClick2(p.id)" style="cursor: pointer;">
+                              <td>{{p.name}}</td>
+                              
+                            </tr>
+                           
+                          </tbody>
+                        </table>
+                      </div>
+            
+                      </div>
+            
+                    </div>
+                  </div> 
+                
+                </div>
+
+
+            
+                <div>
+                <br>
+                <button class="btn btn-primary" type="submit" (click)="validate()">Switch permissions</button>
+              </div>
+              </form>
+            </div>
+            
+          </div>
+          <!-- end card -->
+
+         
+       
+     
+
+         
+       
+      </div>
+
+
+    
+
+
+
+    </div>
+    <!-- end row -->
+  </div>
+  

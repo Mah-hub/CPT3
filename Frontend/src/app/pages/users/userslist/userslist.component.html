@@ -1,0 +1,142 @@
+<div class="container-fluid">
+
+  <app-page-title title="Users List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="d-flex">
+      <button class="btn btn-success ms-auto mb-2" (click)="openModal(content)">Add User </button>
+    </div>
+    <ng-template #content role="document" let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Add User</h5>
+        <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="saveUser()" [formGroup]="userForm">
+          <div class="row">
+            <div class="col-12">     
+              <div class="mb-3">
+                <label class="control-label">Email</label>
+                
+                <input type="email" class="form-control" formControlName="email"
+                  [ngClass]="{'is-invalid': typesubmit && type.email.errors}" placeholder="Enter a valid e-mail" />
+                <div *ngIf="typesubmit && type.email.errors" class="invalid-feedback">
+                  <span *ngIf="type.email.errors.required">This value is required.</span>
+                  <span *ngIf="type.email.errors.pattern">This value should be a valid email.</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success" id="btn-save-event" (click)="getdata()">
+            Save
+          </button>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="tickets-table_length"><label
+                  class="d-inline-flex align-items-center">Show
+                  <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                     class="form-control form-control-sm mx-2">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                  class="d-inline-flex align-items-center">Search:
+                  <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                    aria-controls="tickets-table" ></label></div>
+            </div>
+            <!-- End search -->
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle  table-nowrap table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" style="width: 70px;">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Company</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let user of users">
+                <tr>
+                  <td>
+                    
+                      <img class="rounded-circle header-profile-user" src="{{user.image}}" alt="Header Avatar">
+                    
+                  </td>
+                  <td>
+                    <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{user.username}}</a>
+                    </h5>
+                    <p class="text-muted mb-0">{{user.first_name}} {{user.last_name}} </p>
+                  </td>
+                  <td>{{user.email}}</td>
+                  <td>
+                    {{user.company}}
+                  </td>
+                  <td>
+                   <!-- {{user.groups[0]["name"]}} --> 
+                  </td>
+                  <td>
+                    <ul class="list-inline font-size-20 contact-links mb-0">
+                      <li class="list-inline-item px-2">
+                        <a href="" ngbTooltip="Message"><i class="bx bx-message-square-dots"></i></a>
+                      </li>
+                      <li class="list-inline-item px-2">
+                        <a [routerLink]="['/users/userdetails/',user.id]" ngbTooltip="Profile"><i class="bx bx-user-circle"></i></a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <ul class="pagination pagination-rounded justify-content-center mt-4">
+                <li class="page-item disabled">
+                  <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                </li>
+                <li class="page-item">
+                  <a href="javascript: void(0);" class="page-link">1</a>
+                </li>
+                <li class="page-item active">
+                  <a href="javascript: void(0);" class="page-link">2</a>
+                </li>
+                <li class="page-item">
+                  <a href="javascript: void(0);" class="page-link">3</a>
+                </li>
+                <li class="page-item">
+                  <a href="javascript: void(0);" class="page-link">4</a>
+                </li>
+                <li class="page-item">
+                  <a href="javascript: void(0);" class="page-link">5</a>
+                </li>
+                <li class="page-item">
+                  <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

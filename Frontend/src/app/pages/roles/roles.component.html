@@ -1,0 +1,204 @@
+<div class="container-fluid">
+
+
+<app-page-title title="Roles & Permissions" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="d-flex">
+      <button class="btn btn-success ms-auto mb-2" (click)="openModal(content)">Add Role </button>
+    </div>
+    <ng-template #content role="document" let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Add Role</h5>
+        <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="saveRole()" [formGroup]="groupForm">
+          <div class="row">
+            <div class="col-12">     
+              <div class="mb-3">
+                <label class="control-label">Name</label>
+                <input class="form-control" placeholder="Enter name" type="text" name="name" formControlName="name"
+                  [ngClass]="{'is-invalid': submitted && form.name.errors}" />
+                <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+                  <span *ngIf="form.name.errors.required">Name is required.</span>
+                  <span *ngIf="form.name.errors.pattern">Name already exists.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success" id="btn-save-event">
+            Save
+          </button>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xl-4">
+      
+      <!-- end card -->
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">List of roles</h4>
+
+          <p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
+            person, it will seem like simplified English, as a skeptical Cambridge.</p>
+          <div class="table-responsive">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                     <table class="table table-nowrap mb-0 table-sm"  >
+                          <tbody>
+                            <tr *ngFor="let u of listOfRoles" [ngClass]='{"highlight": selectedRowIndex == u.id}' (click)="highlight(u)" style="cursor: pointer;">
+                                  <td> {{u.name}} </td>
+                                  <td><i class="bx bx-right-arrow-alt"></i></td>
+                             </tr>
+                         </tbody>
+                     </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card -->   
+    </div>
+    
+    <div class="col-xl-8">
+
+     <!--   --> 
+
+
+        <div class="card" >
+          <div class="card-body">
+            <h4 class="card-title">Group custom permissions</h4>
+            
+            <form class="needs-validation" >
+
+
+              <div class="row">
+                
+                <div class="col-md-6">
+                  <div class="card-body">
+                    
+                   
+                    <div class="table-responsive">
+                     <h6> Available permissions</h6>
+                     <div class="col-sm-12 col-md-12">
+                      <div >
+                          <input type="text" placeholder="Search" name="searchTerm" class="form-control form-control-sm "></div>
+                    </div>
+                      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                      <table class="table table-sm m-0 table-bordered" >
+                        <thead>
+                          
+                        </thead>
+                        <tbody >
+                          <tr   *ngFor="let p of permissionsData" [class.selectedRow]="rowIsSelected(p.id)" (click)="onRowClick(p.id)" style="cursor: pointer;">
+                          
+                            <td>{{p.name}}</td>
+                            
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                    </div>
+          
+                    </div>
+          
+                  </div>
+                </div>  
+                
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h6> custom permissions</h6>
+
+
+                    <div class="col-sm-12 col-md-12">
+                      <div >
+                          <input type="text" placeholder="Search" name="searchTerm" class="form-control form-control-sm "></div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                      <table class="table table-sm m-0 table-bordered">
+                        <thead>
+                          
+                        </thead>
+                        <tbody>
+
+                          <tr  *ngFor="let p of permissionsData2" [class.selectedRow2]="rowIsSelected2(p.id)" (click)="onRowClick2(p.id)"  style="cursor: pointer;" >
+                            <td>{{p.name}}</td>
+                            
+                            
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                    </div>
+          
+                    </div>
+          
+                  </div>
+                </div> 
+              
+              </div>
+
+
+          
+              <div>
+              <br>
+              <button class="btn btn-primary" (click)="onSubmit()">Switch permissions</button>
+            </div>
+            </form>
+          </div>
+          
+        </div>
+        <!-- end card -->
+
+       
+     
+   
+
+       
+     
+    </div>
+
+
+  
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
