@@ -16,6 +16,7 @@ class CustomerUserAdmin(UserAdmin):
                'fields':(
                    'phone_number',
                    'products',
+                   'company',
                    'image'
 
                )

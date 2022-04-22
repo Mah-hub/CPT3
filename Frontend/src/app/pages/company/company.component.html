@@ -1,0 +1,214 @@
+<div class="container-fluid">
+
+    <app-page-title title="Companies List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+
+
+
+    <div class="row">
+      <div class="d-flex">
+        <button class="btn btn-success ms-auto mb-2" (click)="openModal(content)">Add Company </button>
+      </div>
+      <ng-template #content role="document" let-modal>
+        <div class="modal-header">
+          <h5 class="modal-title mt-0">Add Company</h5>
+          <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="saveCompany()" [formGroup]="companyForm">
+            <div class="row">
+              <div class="col-12">     
+                <div class="mb-3">
+                  <label class="control-label">Code</label>
+                  
+                  <input type="number" class="form-control" formControlName="code"
+                    [ngClass]="{'is-invalid': typesubmit && type.code.errors}" placeholder="Enter a valid company number" />
+                  <div *ngIf="typesubmit && type.code.errors" class="invalid-feedback">
+                    <span *ngIf="type.code.errors.required">This value is required.</span>
+                    <span *ngIf="type.code.errors.pattern">This value should be a valid email.</span>
+                  </div>
+  
+                </div>
+              </div>
+
+
+
+
+              <div class="col-12">     
+                <div class="mb-3">
+                  <label class="control-label">Name</label>
+                  
+                  <input type="text" class="form-control" formControlName="name"
+                    [ngClass]="{'is-invalid': typesubmit && type.email.errors}" placeholder="Enter a valid company name" />
+                  <div *ngIf="typesubmit && type.name.errors" class="invalid-feedback">
+                    <span *ngIf="type.name.errors.required">This value is required.</span>
+                    <span *ngIf="type.name.errors.pattern">This value should be a valid company name.</span>
+                  </div>
+  
+                </div>
+              </div>
+
+
+
+
+
+              <div class="col-12">     
+                <div class="mb-3">
+                  <label class="control-label">Manager</label>
+                  
+                  <input type="text" class="form-control" formControlName="manager"
+                    [ngClass]="{'is-invalid': typesubmit && type.manager.errors}" placeholder="Enter the manager username" />
+                  <div *ngIf="typesubmit && type.manager.errors" class="invalid-feedback">
+                    <span *ngIf="type.manager.errors.required">This value is required.</span>
+                    <span *ngIf="type.manager.errors.pattern">This value should be a valid username.</span>
+                  </div>
+  
+                </div>
+              </div>
+
+
+
+              <div class="col-12">     
+                <div class="mb-3">
+                  <label class="control-label">Email</label>
+                  
+                  <input type="email" class="form-control" formControlName="email"
+                    [ngClass]="{'is-invalid': typesubmit && type.email.errors}" placeholder="Enter a valid manager e-mail" />
+                  <div *ngIf="typesubmit && type.email.errors" class="invalid-feedback">
+                    <span *ngIf="type.email.errors.required">This value is required.</span>
+                    <span *ngIf="type.email.errors.pattern">This value should be a valid email.</span>
+                  </div>
+  
+                </div>
+              </div>
+
+
+
+
+            </div>
+            <button type="submit" class="btn btn-success" id="btn-save-event" (click)="registerNewManager()">
+              Save
+            </button>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+
+
+
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-md-2">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="tickets-table_length"></div>
+              </div>
+              <!-- Search -->
+              <div class="col-sm-12 col-md-6">
+                <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                    class="d-inline-flex align-items-center">Search:
+                    <input type="text" name="searchTerm" class="form-control form-control-sm ms-2" [(ngModel)]="searchKey"  autocomplete="off" (keyup)="applyFilter()"
+                      aria-controls="tickets-table" ></label></div>
+              </div>
+              <!-- End search -->
+            </div>
+
+
+           
+              <table mat-table [dataSource]="dataSource" matSort class="table align-middle  table-nowrap table-hover">
+                
+                  <tr>
+                    
+                <ng-container matColumnDef="id" >
+                    <th  *matHeaderCellDef mat-sort-header class="table-light"> Code </th>
+                    <td mat-cell *matCellDef="let element"> 
+  
+                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{element.id}} </a>
+                      </h5>
+                      <p class="text-muted mb-0">{{element.name}}  </p>
+                    </td>
+
+                </ng-container>
+                
+               
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <thead class="table-light"> <th  *matHeaderCellDef mat-sort-header class="table-light"  scope="col" > Manager </th> </thead>
+                    <td mat-cell *matCellDef="let element">    {{element.manager["username"]}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                  <thead class="table-light"> <th  *matHeaderCellDef mat-sort-header class="table-light"  scope="col" > Email </th> </thead>
+                  <td mat-cell *matCellDef="let element">    {{element.manager["email"]}} </td>
+              </ng-container>
+
+                <ng-container matColumnDef="image">
+                  <thead class="table-light"> <th  *matHeaderCellDef  class="table-light"  > Image </th> </thead>
+                  <td mat-cell *matCellDef="let element">  <img class="rounded-circle header-profile-user" src="{{element.image}} " alt="Header Avatar"> </td>
+              </ng-container>
+
+
+
+
+              
+
+              <ng-container matColumnDef="actions">
+                <thead class="table-light"> <th  *matHeaderCellDef  class="table-light"  >  </th> </thead>
+                <td mat-cell *matCellDef="let element">   <ul class="list-inline font-size-20 contact-links mb-0">
+                 
+                  <li class="list-inline-item px-2">
+                     <a [routerLink]="['/company/companydetails/',element.id]" ngbTooltip="Company details"><i class="bx bxs-detail"></i></a>
+                    
+                
+    
+                      </li>
+                      <li class="list-inline-item px-2">
+                       
+                       
+                        <a [routerLink]="['/company/listofusersbycompany/',element.id]" ngbTooltip="Users"><i class="bx bxs-user-detail
+                          "></i></a>
+                   
+                 
+                         </li>
+
+                </ul> </td>
+            </ng-container>
+
+              
+                  </tr>
+            
+
+                <ng-container matColumnDef="loading">
+                    <mat-footer-cell *matFooterCellDef colspan="6">
+                      Loading data...
+                    </mat-footer-cell>
+                  </ng-container>
+      
+
+                    <ng-container matColumnDef="noData">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                            No data.
+                          </mat-footer-cell>
+                        </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':getdata!=null}"></mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(getdata!=null && getdata.length==0)}"></mat-footer-row>
+               
+              </table>
+
+            </div>
+            <mat-paginator [pageSizeOptions]="[5,10]" ></mat-paginator>
+
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  

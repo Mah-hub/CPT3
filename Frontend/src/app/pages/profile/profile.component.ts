@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit {
   hide=true;
   hide2=true;
   hide3=true;
+  role="null";
 
 userImage;
   ngOnInit() {
@@ -148,6 +149,9 @@ profile()
   this.userService.profile().subscribe( data => {
     console.log("datay",data)
     this.user=data
+    if(data.groups.length !=0) {
+      this.role= data.groups["0"]["name"] 
+    }
     this.userImage=data.image
   },err => console.log("err",err))
 }
@@ -164,7 +168,7 @@ updateProfile() {
     'phone_number':this.form.phoneNumber.value,
 
   }
-  this.userService.updateProfile(profileData).subscribe(
+  this.userService.updateProfileAfterSuccess(profileData).subscribe(
     data=> console.log("SSSSSSSSSSSSSSSSSSSss",data),
     err => console.log("RRRRRRRRRRRRRRRRRRRRRRRRRR",err)
   )

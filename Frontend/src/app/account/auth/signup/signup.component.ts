@@ -94,7 +94,10 @@ export class SignupComponent implements OnInit {
           data=> {
  
             this.usersService.updateProfile(profileData).subscribe(
-              data=> {console.log("SSSSSSSSSSSSSSSSSSSss",data)
+              data=> {console.log("SSSSSSSSSSSSSSSSSSSss",data),
+              console.log("SSSSSSSSSSSS2",profileData),
+              
+
               this.router.navigate(["/dashboard"]);   
             },
               err => console.log("RRRRRRRRRRRRRRRRRRRRRRRRRR",err)

@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from django.conf import settings
 from PIL import Image
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from company.models import Company
 
 # Create your models here.
 
@@ -109,6 +109,7 @@ class User(AbstractBaseUser, PermissionsMixin ,trackingModel):
           
         ),
     )
+    company = models.ForeignKey(Company, related_name='company',on_delete=models.CASCADE,blank=True,null=True)
     products=models.ManyToManyField(Product, blank=True)
 
     image =models.ImageField(_('image'),upload_to=upload_to,default='users/default.png')
@@ -139,3 +140,5 @@ class User(AbstractBaseUser, PermissionsMixin ,trackingModel):
         }
     
        
+    def __str__(self):
+        return  (self.username)

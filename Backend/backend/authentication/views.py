@@ -4,7 +4,7 @@ from django.views import generic
 from rest_framework import request, serializers
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
-from authentication.serializers import ForgotPasswordEmail, LoginSerializer, ProfileSerializer, RegisterSerializer, SetNewPasswordSerializer, UsersSerializer,PermissionSerializer,GroupSerializer,ChangePasswordSerializer, UpdateAfterRegister,ProfileAvatarSerializer,LogoutSerializer
+from authentication.serializers import ForgotPasswordEmail, LoginSerializer, ProfileSerializer, RegisterSerializer, SetNewPasswordSerializer, UsersSerializer,PermissionSerializer,GroupSerializer,ChangePasswordSerializer, UpdateAfterRegister,ProfileAvatarSerializer,LogoutSerializer,ProfileAfterSuccessLoginSerializer
 from rest_framework import response , status, permissions
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
@@ -84,11 +84,7 @@ class RegisterUserViaEmail(GenericAPIView):
 
         absurl='http://localhost:4200/account/signup'+";u="+user_data
 
-        #absurl='http:/'+relativeLink+";token="+str(token)
-
-
-
-        #email_body='Hi Please create your account by clicking on the link \n'+absurl
+     
 
         email_body="<!DOCTYPE html><html><head><meta charset='utf-8'><title>Welcome</title></head><body bgcolor='f8f8ff'><div style='background-color: white; padding: 10px;' > <div class='parent'> <div class='child'> <h1 id='welcome' align='center' style='font-family: helvetica;' > Welcome ! </h1> <div align='center'> <br> <br> <img style='width: 240px;' src='https://i.ibb.co/r09HM8J/welcome.png'> <br> <br><h4 style='font-family: arial;' align='center'> We're excited to have you in ZUM-IT Customer portal. </h4><h4 style='font-family: arial;' align='center'> First you need yo complete your account registration, you just have to click </h4><h4 style='font-family: arial;' align='center'> on the button down below. </h4><br> <br> <form action="+absurl+"><input value='Register account' type='submit' style='background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; -webkit-transition-duration: 0.4s; transition-duration: 0.4s;' class='button button2'  align='center'> </form> </div> </div></div><div> </body></html>"
         
@@ -107,16 +103,52 @@ class RegisterUserViaEmail(GenericAPIView):
 
 
 
+class RegisterManagerViaEmail(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
 
-
-
-
-
-
-
-
+    serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+                
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        user_data=serializer.data["username"]
+        user_email=serializer.data["email"]
+        user=User.objects.get(username=user_data)
+        my_group=Group.objects.get(name="manager")
+        my_group.user_set.add(user)
+
+        absurl='http://localhost:4200/account/signup'+";u="+user_data
+
+     
+
+        email_body="<!DOCTYPE html><html><head><meta charset='utf-8'><title>Welcome Manager</title></head><body bgcolor='f8f8ff'><div style='background-color: white; padding: 10px;' > <div class='parent'> <div class='child'> <h1 id='welcome' align='center' style='font-family: helvetica;' > Welcome ! </h1> <div align='center'> <br> <br> <img style='width: 240px;' src='https://i.ibb.co/r09HM8J/welcome.png'> <br> <br><h4 style='font-family: arial;' align='center'> We're excited to have you in ZUM-IT Customer portal as a manager. </h4><h4 style='font-family: arial;' align='center'> First you need yo complete your account registration, you just have to click </h4><h4 style='font-family: arial;' align='center'> on the button down below. </h4><br> <br> <form action="+absurl+"><input value='Register account' type='submit' style='background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; -webkit-transition-duration: 0.4s; transition-duration: 0.4s;' class='button button2'  align='center'> </form> </div> </div></div><div> </body></html>"
+        
+        data={'email_body':email_body,'domain':absurl, 'to_email': user_email , 'email_subject':'Create your Account'}
+
+        email = EmailMultiAlternatives(
+            subject=data['email_subject'], body=data['email_body'], to=[data['to_email']])
+        email.attach_alternative(email_body, "text/html")
+ 
+        email.send()
+ 
+       
+        return Response({
+            'id': user.id,
+        })
+
+
+
+
+
+
+
+
+
+
+
+""" def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
                 
@@ -138,7 +170,7 @@ class RegisterUserViaEmail(GenericAPIView):
  
         return Response({
             'success': 'user created',
-        })
+        }) """
 
 
 
@@ -180,6 +212,17 @@ class Profile(generics.RetrieveAPIView,generics.UpdateAPIView):
     model=User
     def get_object(self):        
         return User.objects.get(username=self.request.user)
+
+
+class ProfileAfterSuccessLogin(generics.RetrieveAPIView,generics.UpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    queryset=User.objects.all()
+    serializer_class = ProfileAfterSuccessLoginSerializer
+    model=User
+    def get_object(self):        
+        return User.objects.get(username=self.request.user)
+
 
 
 

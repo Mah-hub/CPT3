@@ -16,9 +16,12 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register',views.RegisterAPIView.as_view(), name="register"),
     path('registeruserviaemail',views.RegisterUserViaEmail.as_view(), name="register2"),
+    path('registermanagerviaemail',views.RegisterManagerViaEmail.as_view(), name="register3"),
     path('login',views.LoginAPIView.as_view(), name="login"),
     path('user',views.AuthUserAPIView.as_view(), name="user"),
     path('profile',views.Profile.as_view(),name="profile"),
+    path('profileaftersuccess',views.ProfileAfterSuccessLogin.as_view(),name="profile"),
+
     path('profileavatar/',views.ProfileAvatar.as_view(),name="profile_avatar"),
     path('permissions',views.PermissionAPIView.as_view()),
     path('request-reset-email/',views.RequestPasswordResetEmail.as_view(), name="request-reset-email"),

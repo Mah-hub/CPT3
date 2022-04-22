@@ -12,7 +12,6 @@ from django.contrib import auth
 
 
 
-
 class PermissionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Permission
@@ -46,6 +45,19 @@ class GroupSerializer(serializers.ModelSerializer):
       
 
         return instance
+
+
+
+
+
+class UsersbyCompanySerializer(serializers.ModelSerializer):
+
+    groups = serializers.SlugRelatedField(many=True, read_only=True, slug_field="name")
+
+    class Meta:
+        model=User
+        fields=['id','username','email','groups','is_active']
+       
 
 
 
@@ -124,7 +136,7 @@ class LoginSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['id','username','first_name','last_name','image','email','phone_number','created_at','updated_at','last_login','groups','user_permissions','is_active','products',]
+        fields=['id','username','first_name','password','last_name','image','email','phone_number','created_at','updated_at','last_login','groups','user_permissions','is_active','company']
         depth=1
 
     def update(self, instance, validated_data):
@@ -133,9 +145,30 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.last_name = validated_data.pop('last_name', instance.last_name)
         instance.email = validated_data.pop('email', instance.email)
         instance.phone_number = validated_data.pop('phone_number', instance.phone_number)
-
+        instance.set_password(validated_data.pop('password'))
         instance.save()
         return instance
+
+
+
+
+class ProfileAfterSuccessLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['id','username','first_name','last_name','image','email','phone_number','created_at','updated_at','last_login','groups','user_permissions','is_active','company']
+        depth=1
+
+    def update(self, instance, validated_data):
+        instance.username = validated_data.pop('username', instance.username)
+        instance.first_name = validated_data.pop('first_name', instance.first_name)
+        instance.last_name = validated_data.pop('last_name', instance.last_name)
+        instance.email = validated_data.pop('email', instance.email)
+        instance.phone_number = validated_data.pop('phone_number', instance.phone_number)
+        instance.save()
+        return instance
+
+
+
 
 
 class ProfileAvatarSerializer(serializers.ModelSerializer):
@@ -154,10 +187,11 @@ class UsersSerializer(serializers.ModelSerializer):
     user_permissions = PermissionSerializer(many=True)
     groups = GroupSerializer(many=True)
 
+   
     class Meta:
         model=User
-        fields=['id','username','first_name','last_name','email','image','phone_number','created_at','updated_at','last_login','groups','user_permissions','is_active','products',]
-        depth=1
+        fields=['id','username','first_name','last_name','email','image','phone_number','created_at','updated_at','last_login','groups','user_permissions','is_active','company']
+        #depth=1
 
     def update(self, instance, validated_data):
         instance.username = validated_data.pop('username', instance.username)
@@ -170,12 +204,14 @@ class UsersSerializer(serializers.ModelSerializer):
 
         for key, val in validated_data.items():
             setattr(instance, key, val)
-        instance.save()                     # This will indeed update DB values
+        instance.save()  
+        my_permission= 1
+        my_group=1                   # This will indeed update DB values
+        instance.groups.clear()
 
         for group_data in groups_data:
              my_group = Group.objects.get(name=dict(group_data)["name"])
         
-        instance.groups.clear()
         instance.groups.add(my_group)     # Add all groups once. Also you can replace these two lines with
                                             # instance.groups.set(group_ids)
         instance.user_permissions.clear()

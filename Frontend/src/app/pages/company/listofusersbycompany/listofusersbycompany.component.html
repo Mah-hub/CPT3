@@ -1,0 +1,100 @@
+<div class="container-fluid">
+
+    <app-page-title title="Users by company" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+
+
+
+
+
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-md-2">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="tickets-table_length"></div>
+              </div>
+              <!-- Search -->
+              <div class="col-sm-12 col-md-6">
+                <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                    class="d-inline-flex align-items-center">Search:
+                    <input type="text" name="searchTerm" class="form-control form-control-sm ms-2" [(ngModel)]="searchKey"  autocomplete="off" (keyup)="applyFilter()"
+                      aria-controls="tickets-table" ></label></div>
+              </div>
+              <!-- End search -->
+            </div>
+
+
+           
+              <table mat-table [dataSource]="dataSource" matSort class="table align-middle  table-nowrap table-hover">
+                
+                  <tr>
+                    
+                <ng-container matColumnDef="username" >
+                    <th  *matHeaderCellDef mat-sort-header class="table-light"> Username </th>
+                   
+                    <td mat-cell *matCellDef="let element">    {{element.username}} </td>
+
+                </ng-container>
+                
+               
+                <!-- Name Column -->
+                <ng-container matColumnDef="email">
+                    <thead class="table-light"> <th  *matHeaderCellDef mat-sort-header class="table-light"  scope="col" > Email </th> </thead>
+                    <td mat-cell *matCellDef="let element">    {{element.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                  <thead class="table-light"> <th  *matHeaderCellDef mat-sort-header class="table-light"  scope="col" > Role </th> </thead>
+                  <td mat-cell *matCellDef="let element">    {{element.groups}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <thead class="table-light"> <th  *matHeaderCellDef mat-sort-header class="table-light"  scope="col" > Status </th> </thead>
+                <td mat-cell *matCellDef="let element">    {{element.is_active}} </td>
+            </ng-container>
+
+
+
+
+              
+
+              <ng-container matColumnDef="actions">
+                <thead class="table-light"> <th  *matHeaderCellDef  class="table-light"  >  </th> </thead>
+                <td mat-cell *matCellDef="let element">   <ul class="list-inline font-size-20 contact-links mb-0">
+                 
+                  <li class="list-inline-item px-2">
+                     <a [routerLink]="['/users/userdetails/',element.id]" ngbTooltip="Company details"><i class="bx bxs-detail"></i></a>
+                    
+        
+                      </li>
+                    
+
+                </ul> </td>
+            </ng-container>
+
+              
+                  </tr>
+            
+
+            
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+               
+              </table>
+
+            </div>
+            <mat-paginator [pageSizeOptions]="[5,10]" ></mat-paginator>
+
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  

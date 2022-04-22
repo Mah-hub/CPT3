@@ -4,7 +4,7 @@ import { Router } from '@angular/router'
      // import {} from ''
      // const store = require('store');
      
-const MINUTES_UNITL_AUTO_LOGOUT = 1 // in mins
+const MINUTES_UNITL_AUTO_LOGOUT = 30 // in mins
 const CHECK_INTERVAL = 15000 // in ms
 const STORE_KEY =  'lastAction';
 @Injectable()

@@ -89,6 +89,25 @@ export const MENU: MenuItem[] = [
         link: '/',
     },
    
+    {
+        id: 15,
+        label: 'Company',
+        isTitle: true
+    },
+    {
+        id: 16,
+        label: 'Company',
+        icon: 'bx-calendar',
+        link: 'company',
+    },
+
+    {
+        id: 17,
+        label: ' My Company',
+        icon: 'bx-calendar',
+        link: 'company/mycompany',
+    },
+   
    
     
 ];

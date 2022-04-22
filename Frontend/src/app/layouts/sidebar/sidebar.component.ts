@@ -147,6 +147,25 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.usersService.loggedInUserPermissions().subscribe(data=> {
 
+
+       if(data.group.length != 0) {
+        console.log("777777777",data.group["0"]["0"])
+
+        if ( data.group["0"]["0"] != 'manager') {
+          this.menuItems.splice(11,1)
+          console.log("UUUUUUUUUUUUUUUUUUUUUU",data.group["0"]["0"] )
+        } 
+        
+      
+
+      }
+      else {
+        this.menuItems.splice(11,1)
+      }
+
+      
+    
+
       if(data["permissions"].indexOf("products.view_product") == -1){
         this.menuItems.splice(5,2)
      } 
@@ -157,7 +176,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   if(data["permissions"].indexOf("authentication.view_user") == -1){
     this.menuItems.splice(2,2)
 } 
-
+   
   
      
     })

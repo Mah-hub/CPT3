@@ -41,12 +41,16 @@ export class UsersService {
     return this.http.put(this.baseurl + '/api/auth/profile' , data  );
   }
 
+  updateProfileAfterSuccess(data):Observable<any>{
+   
+    return this.http.patch(this.baseurl + '/api/auth/profileaftersuccess' , data  );
+  }
+
 
   updateProfileAvatar(mImage){
     
     const formData = new FormData();
     formData.append('image', mImage);
-    console.log("FOOOOORMMMMDATA",formData)
     return this.http.put(this.baseurl + '/api/auth/profileavatar/', formData)
   }
 
